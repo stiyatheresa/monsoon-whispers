@@ -99,11 +99,15 @@ timeline.to(".loader-brand", {
 
 
     // Main headline
-    timeline.from(".hero-title", {
-        opacity: 0,
-        y: 70,
-        duration: 1.1
-    }, "-=0.5");
+   timeline.from(".hero-line", {
+    opacity: 0,
+    y: 80,
+    rotateX: -15,
+    transformOrigin: "left bottom",
+    duration: 1.2,
+    stagger: 0.25,
+    ease: "power4.out"
+}, "-=0.5");
 
 
     // Description
@@ -256,12 +260,13 @@ gsap.from(".destinations-header", {
 });
 
 
-// Destination cards reveal
+// TEST: Destination card animation
 gsap.from(".destination-card", {
-    y: 100,
+    y: 200,
     opacity: 0,
-    duration: 1.1,
-    stagger: 0.18,
+    scale: 0.8,
+    duration: 2,
+    stagger: 0.5,
     ease: "power3.out",
     scrollTrigger: {
         trigger: ".destination-grid",

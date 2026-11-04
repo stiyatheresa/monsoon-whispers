@@ -5,6 +5,9 @@
 ===================================== */
 
 :root {
+
+    --primary-font: 'Google Sans', Arial, sans-serif;
+    --heading-font: 'Cormorant Infant', serif;
     /* Brand Colours */
     --forest: #264A31;       /* Primary Green */
     --green: var(--forest);
@@ -32,7 +35,7 @@ html {
 }
 
 body {
-    font-family: var(--body-font);
+    font-family: var(--primary-font);
     background: var(--ivory);
     color: var(--forest);
     overflow-x: hidden;
@@ -247,17 +250,35 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 .hero-title {
     font-family: var(--heading-font);
 
-    font-size: clamp(58px, 7vw, 104px);
+    font-size: clamp(48px, 5.5vw, 82px);
     line-height: 1.12;
 
     font-weight: 400;
     letter-spacing: -2.5px;
 }
 
-.hero-title span {
+.hero-title .hero-line {
     display: block;
+    color: var(--ivory);
+    font-style: normal;
+    overflow: hidden;
+}
+/* First line — Google Sans */
+.hero-title .hero-line:first-child {
+    font-family: var(--primary-font);
+}
 
+/* Second line — Cormorant Infant */
+.hero-title .hero-line.hero-highlight {
+    font-family: var(--heading-font);
+}
+
+.hero-title .hero-highlight {
     color: var(--gold);
+    font-style: italic;
+}
+.hero-title .hero-line.hero-highlight {
+    color: #C6A36A !important;
     font-style: italic;
 }
 
@@ -819,7 +840,90 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
     grid-template-columns: 1.15fr 0.85fr;
     gap: 22px;
 }
+/* ANIMATED TRAVEL ROUTE */
 
+.travel-route {
+    position: relative;
+    width: 100%;
+    height: 55px;
+    margin: 15px 0 25px;
+    display: flex;
+    align-items: center;
+}
+
+.route-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: repeating-linear-gradient(
+        to right,
+        var(--gold) 0 6px,
+        transparent 6px 13px
+    );
+}
+
+.route-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: var(--ivory);
+}
+
+.route-start {
+    left: 0;
+}
+
+.route-end {
+    right: 0;
+}
+
+.route-plane {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    color: var(--gold);
+    font-size: 23px;
+    transform: translateY(-50%);
+    animation: planeJourney 8s ease-in-out infinite alternate;
+}
+
+@keyframes planeJourney {
+    from {
+        left: 0;
+        transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+        left: calc(100% - 25px);
+        transform: translateY(-50%) rotate(0deg);
+    }
+}
+/* TRAVEL ROUTE LABELS */
+
+.route-label {
+    position: absolute;
+    top: 0;
+    color: var(--gold);
+    font-family: var(--primary-font);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.route-label-start {
+    left: 0;
+}
+
+.route-label-end {
+    right: 0;
+}
+
+/* Keep the route line below the labels */
+.route-line {
+    top: 65%;
+}
 
 /* DESTINATION CARDS */
 
@@ -840,7 +944,27 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
     height: 540px;
 }
 
+/* CINEMATIC HOVER LIGHT */
 
+.destination-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        120deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.16) 50%,
+        transparent 75%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.9s ease;
+}
+
+.destination-card:hover::after {
+    transform: translateX(100%);
+}
 /* IMAGES */
 
 .destination-card img {
@@ -858,8 +982,43 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 .destination-card:hover img {
     transform: scale(1.09);
 }
+/* DESTINATION TEXT ANIMATION */
 
+.destination-info {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.6s ease;
+}
 
+.destination-info h3 {
+    transition: transform 0.6s ease;
+}
+
+.destination-info p {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.destination-card:hover .destination-info {
+    transform: translateY(-8px);
+}
+
+.destination-card:hover .destination-info p {
+    transform: translateX(6px);
+}
+/* DESTINATION ARROW ANIMATION */
+
+.destination-arrow {
+    display: inline-block;
+    color: var(--gold);
+    opacity: 0;
+    transform: translate(-6px, 6px);
+    transition: all 0.4s ease;
+}
+
+.destination-card:hover .destination-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+}
 /* IMAGE OVERLAY */
 
 .destination-overlay {
@@ -1027,7 +1186,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 
 .experiences-header h2 {
     color: var(--green);
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: clamp(42px, 5.5vw, 76px);
     font-weight: 400;
     line-height: 1.08;
@@ -1097,6 +1256,10 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
     right: 32px;
     bottom: 32px;
     z-index: 2;
+    transition: transform 0.6s ease;
+}
+.experience-card:hover .experience-info {
+    transform: translateY(-10px);
 }
 
 .experience-info span {
@@ -1108,7 +1271,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 }
 
 .experience-info h3 {
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: clamp(26px, 3vw, 38px);
     font-weight: 400;
     margin: 0 0 8px;
@@ -1126,21 +1289,51 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
     right: 30px;
     top: 30px;
     z-index: 2;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: grid;
     place-items: center;
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 50%;
-    font-size: 18px;
-    transition: background 0.3s, color 0.3s;
+    font-size: 20px;
+    color: white;
+    transition: all 0.5s ease;
 }
 
 .experience-card:hover .experience-arrow {
-    background: white;
-    color: var(--green);
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--dark-green);
+    transform: rotate(45deg);
+}
+/* EXPERIENCE CARD LIGHT SWEEP */
+
+.experience-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        120deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.15) 50%,
+        transparent 75%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.9s ease;
 }
 
+.experience-card:hover::after {
+    transform: translateX(100%);
+}
+.experience-card:hover .experience-overlay {
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.12) 10%,
+        rgba(0, 0, 0, 0.82) 100%
+    );
+}
 /* Mobile layout */
 @media (max-width: 768px) {
     .experiences-section {
@@ -1210,7 +1403,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 }
 
 .why-heading h2 {
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: clamp(42px, 7vw, 94px);
     line-height: 1.08;
     font-weight: 400;
@@ -1220,7 +1413,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 
 .why-heading p {
     color: var(--gold);
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: clamp(18px, 2vw, 25px);
     font-style: italic;
     margin-top: 25px;
@@ -1241,7 +1434,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 }
 
 .why-value h3 {
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: 25px;
     font-weight: 400;
     margin: 25px 0 15px;
@@ -1375,7 +1568,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 }
 
 .cinematic-content h2 {
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: clamp(48px, 7vw, 96px);
     font-weight: 400;
     line-height: 1.08;
@@ -1486,7 +1679,7 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 }
 
 .contact-heading h2 {
-    font-family: "Playfair Display", serif;
+    font-family: var(--heading-font);
     font-size: clamp(48px, 7vw, 92px);
     line-height: 1.08;
     font-weight: 400;
@@ -1600,4 +1793,98 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
 .navbar.scrolled {
     background: rgba(16, 42, 35, 0.96);
     backdrop-filter: blur(12px);
+}
+/* LANDING PAGE STYLE FOR ALL SECTION HEADINGS */
+
+.section-title .heading-main {
+    display: block;
+    font-family: var(--primary-font);
+    font-style: normal;
+    color: var(--ivory);
+}
+
+.section-title .heading-highlight {
+    display: block;
+    font-family: var(--heading-font);
+    font-style: italic;
+    color: var(--gold);
+}
+/* ABOUT SECTION HEADING */
+.intro-heading .heading-main {
+    color: var(--forest) !important;
+    font-family: var(--primary-font);
+    font-style: normal;
+}
+
+.intro-heading .heading-highlight {
+    color: var(--gold);
+    font-family: var(--heading-font);
+    font-style: italic;
+}
+/* DESTINATIONS HEADING */
+.destinations-header .heading-main {
+    font-family: var(--primary-font);
+    color: var(--ivory) !important;
+    font-style: normal;
+    display: block;
+}
+
+.destinations-header .heading-highlight {
+    font-family: var(--heading-font);
+    color: var(--gold);
+    font-style: italic;
+}
+/* EXPERIENCES HEADING */
+.experiences-header .heading-main {
+    font-family: var(--primary-font);
+    color: var(--forest);
+    font-style: normal;
+    display: block;
+}
+
+.experiences-header .heading-highlight {
+    font-family: var(--heading-font);
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+}
+/* WHY SECTION HEADING */
+.why-heading .heading-main {
+    display: block;
+    font-family: var(--primary-font);
+    color: var(--ivory);
+    font-style: normal;
+}
+
+.why-heading .heading-highlight {
+    display: block;
+    font-family: var(--heading-font);
+    color: var(--gold);
+    font-style: italic;
+}
+.cinematic-content .heading-main {
+    display: block;
+    font-family: var(--primary-font) !important;
+    color: var(--ivory);
+    font-style: normal;
+}
+
+.cinematic-content .heading-highlight {
+    display: inline;
+    font-family: var(--heading-font) !important;
+    color: var(--gold);
+    font-style: italic;
+}
+.contact-heading .heading-main {
+    display: block;
+    font-family: var(--primary-font) !important;
+    color: var(--forest);
+    font-style: normal;
+}
+
+.contact-heading .heading-highlight {
+    display: inline-block;
+    font-family: var(--heading-font) !important;
+    color: var(--gold);
+    font-style: italic;
 }
