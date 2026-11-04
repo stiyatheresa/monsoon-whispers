@@ -5,14 +5,20 @@
 ===================================== */
 
 :root {
-    --forest: #173D32;
-    --dark-green: #102A23;
-    --ivory: #F6F2E9;
-    --gold: #C6A36A;
-    --white: #FFFFFF;
+    /* Brand Colours */
+    --forest: #264A31;       /* Primary Green */
+    --green: var(--forest);
+    --dark-green: #193522;
+    --orange: #F27D16;
+    --sky: #4DCAEA;
+    --lichen: #C4E326;
+    --ivory: #FFF5E1;
 
-    --heading-font: 'Playfair Display', serif;
-    --body-font: 'DM Sans', sans-serif;
+    /* Supporting Colours */
+    --white: #FFFFFF;
+    --text-dark: var(--forest);
+    --text-light: var(--ivory);
+    --gold: #C6A36A;         /* Original Muted Gold */
 }
 
 * {
@@ -128,9 +134,9 @@ a {
 }
 
 .nav-cta:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--dark-green);
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--white);
 }
 
 .menu-toggle {
@@ -278,21 +284,18 @@ background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2
     display: inline-flex;
     align-items: center;
     gap: 35px;
-
     margin-top: 37px;
     padding: 17px 23px;
-
-    background: var(--gold);
-    color: var(--dark-green);
-
+    background: var(--orange);
+    color: var(--white);
     font-size: 12px;
     font-weight: 600;
-
     transition: all 0.4s ease;
 }
 
 .hero-button:hover {
-    background: var(--ivory);
+    background: var(--lichen);
+    color: var(--forest);
     transform: translateY(-4px);
 }
 
